@@ -1,4 +1,4 @@
-#Spis treœci
+#Spis tresci
 - [Baza danych](#baza)
 - [Agregacja 1](#agregacja-1)
 - [Agregacja 2](#agregacja-2)
@@ -7,28 +7,27 @@
 
 #Baza danych
 
-Baza danych Reddit dostêpny na stronie prowadz¹cego.
+Baza danych Reddit dostÃªpny na stronie prowadzÂ¹cego.
 
 Import bazy danych:
 ```sh
 mongoimport -d zad1 -c reddit --type json --file "C:\Users\Tomasz\Desktop\Bzyl\rc\RC_2015-01.json"
 ```
 
-#Agregacja 1
-Sredni iloœæ ³apek w dó³ postów niezarchiwizowanych<br>
+#Agregacja 1)
+Sredni ilosc lapek w dÃ³l postÃ³w niezarchiwizowanych<br>
 
-[JS](https://github.com/mralexx/egzaminNOSQL/blob/master/ag1.js)
+[JS](https://github.com/tomaszwolf/exam/blob/master/zad1.js)
 ```js
 var match = { $match : { archived : false } };
 var group = { $group : { _id : "$archived", avgdowns : {$avg : "$downs"}}};
 
 var wynik = db.reddit.aggregate(
 match,
-group
-);
+group);
 ```
 
-[PHP](https://github.com/mralexx/egzaminNOSQL/blob/master/ag1.php)
+[PHP](https://github.com/tomaszwolf/exam/blob/master/zad1.php)
 ```php
 $match = array('$match' => array('archived' => false));
 $group = array('$group' => array('_id' => '$archived', 'avgdowns' => array('$avg' => '$downs')));
@@ -36,16 +35,15 @@ $pipeline = array($match, $group);
 
 $out = $collection -> aggregate($pipeline);
 ```
-
 Wynik
 ```js
 { "_id" : false, "avgdowns" : 2.354842 }
 ```
 
-#Agregacja 2
-10 najwiêkszych sum score u¿ytkowników, których posty nieby³y zarchwizowane<br>
+#Agregacja 2)
+Cel: 10 najwiekszych sum score uzytkownikÃ³w, ktÃ³rych posty niebyly zarchwizowane<br>
 
-[JS](https://github.com/mralexx/egzaminNOSQL/blob/master/ag2.js)
+[JS](https://github.com/tomaszwolf/exam/blob/master/zad2.js)
 ```js
 
 var match = {$match : { edited : false }};
@@ -57,11 +55,10 @@ var wynik = db.reddit.aggregate(
 match,
 group,
 sort,
-limit
-);		
+limit);		
 ```
 
-[PHP]()
+[PHP](https://github.com/tomaszwolf/exam/blob/master/zad2.php)
 ```php
 $match = array('$match' => array('archived' => false)));
 $group = array('$group' => array('_id' => '$id', 'totalscore' => array('$sum' => '$score')));
@@ -87,7 +84,7 @@ Wynik
 
 ```
 
-| Id                                        	| Wynik |
+|             Id                                |     Wynik   |
 |-----------------------------------------------|-------------|
 | co70key  					| 1546        |
 | co78dd3                                       | 1352        |
@@ -102,17 +99,17 @@ Wynik
 
 
 
-#Agregacja 3
+#Agregacja 3)
 
 
-Przed kolejnymi agregacjami nale¿y stworzyæ index do bazy<br>
+Przed kolejnymi agregacjami nalezy stworzyc index do bazy<br>
 ```js
 db.exam.ensureIndex({body:"text"})
 ```
 
-Iloœæ wyst¹pieñ nazwy Sony w temacie phone<br>
+Cel: Znalesc ilosc wystapien nazwy Sony w temacie phone<br>
 
-[JS](https://github.com/mralexx/egzaminNOSQL/blob/master/ag3.js)
+[JS](https://github.com/tomaszwolf/exam/blob/master/zad3.js)
 ```js
 var match = {$match: { $text: { $search: "Sony"}, subreddit: "phone"}};
 var group = {$group: {_id: null, total : {$sum: 1}}};
@@ -122,7 +119,7 @@ match,
 group);	
 ```
 
-[PHP]()
+[PHP](https://github.com/tomaszwolf/exam/blob/master/zad3.php)
 ```php
 $match = array('$match' => array('$text' => array('$search' => 'Sony'), 'subreddit' => 'phone'));
 $group = array('$group' => array('_id' => '0', 'total' => array('$sum' => '1')));

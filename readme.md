@@ -11,7 +11,7 @@ Baza danych Reddit dostêpny na stronie prowadz¹cego.
 
 Import bazy danych:
 ```sh
-mongoimport -d zadexam -c exam --type json --file RC_2015.json
+mongoimport -d zad1 -c redit --type json --file "C:\Users\Tomasz\Desktop\Bzyl\rc\RC_2015-01.json"
 ```
 
 #Agregacja 1

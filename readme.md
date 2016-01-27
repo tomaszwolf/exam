@@ -59,6 +59,7 @@ limit);
 ```
 
 [PHP](https://github.com/tomaszwolf/exam/blob/master/zad2.php)
+
 ```php
 $match = array('$match' => array('archived' => false)));
 $group = array('$group' => array('_id' => '$id', 'totalscore' => array('$sum' => '$score')));
@@ -70,6 +71,7 @@ $out = $collection -> aggregate($pipeline);
 ```
 
 Wynik
+
 ```js
 { "_id" : "co70key", "totalscore" : 1546 }
 { "_id" : "co78dd3", "totalscore" : 1352 }
@@ -103,6 +105,7 @@ Wynik
 
 
 Przed kolejnymi agregacjami nalezy stworzyc index do bazy<br>
+
 ```js
 db.exam.ensureIndex({body:"text"})
 ```
@@ -110,6 +113,7 @@ db.exam.ensureIndex({body:"text"})
 Cel: Znalesc ilosc wystapien nazwy Sony w temacie phone<br>
 
 [JS](https://github.com/tomaszwolf/exam/blob/master/zad3.js)
+
 ```js
 var match = {$match: { $text: { $search: "Sony"}, subreddit: "phone"}};
 var group = {$group: {_id: null, total : {$sum: 1}}};
@@ -120,6 +124,7 @@ group);
 ```
 
 [PHP](https://github.com/tomaszwolf/exam/blob/master/zad3.php)
+
 ```php
 $match = array('$match' => array('$text' => array('$search' => 'Sony'), 'subreddit' => 'phone'));
 $group = array('$group' => array('_id' => '0', 'total' => array('$sum' => '1')));
@@ -128,6 +133,8 @@ $out = $collection -> aggregate($pipeline);
 ```
 
 Wynik
-```js 898
+
+```
+js 898
 ```
 
